@@ -20,7 +20,7 @@ class UserController extends Controller
             'last_name'=>'required',
             'phone_number'=>'required',
             'age'=>'required',
-            'email'=>'required|email|uniqe:users',
+            'email'=>'required',
             'address'=>'required',
             'postal_code'=>'required',
             'country'=>'required',
