@@ -33,9 +33,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        {{--<div class="card-header">
+                        <div class="card-header">
                             <h3 class="card-title"></h3>
-                        </div>--}}
+                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="container">
@@ -45,11 +45,11 @@
                                         <th>ID</th>
                                         <th>اسم سفارش</th>
                                         <th>مشتری</th>
-                                        <th>فروشنده</th>
-                                        <th>توضیحات</th>
+
+
                                         <th>لیست محصولات</th>
                                         <th>قیمت کل</th>
-                                        <th>بدهی</th>
+
                                         <th>ویرایش</th>
                                         <th>حذف</th>
                                     </tr>
@@ -59,44 +59,25 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{$order->id}}</td>
-                                            <td>{{$order->order_name}}</td>
+                                            <td>{{$order->title}}</td>
                                             <td>
                                                 <a class="btn" data-bs-toggle="collapse"
-                                                   href="#collapseC{{$order->customer->id}}{{$temp}}">
-                                                    {{$order->customer->id}}
+                                                   href="#collapseC{{$order->id}}{{$temp}}">
+                                                    {{$order->id}}
                                                 </a>
-                                                <div id="collapseC{{$order->customer->id}}{{$temp++}}"
+                                                <div id="collapseC{{$order->id}}{{$temp++}}"
                                                      class="collapse"
                                                      data-bs-parent="#accordion">
                                                     <div class="card-body">
                                                         <table>
                                                             <tr>
-                                                                <th>{{$order->customer->first_name}} {{$order->customer->last_name}}</th>
-                                                                <th>{{$order->customer->email}}</th>
+                                                                <th>{{$order->first_name}} {{$order->last_name}}</th>
+                                                                <th>{{$order->email}}</th>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <a class="btn" data-bs-toggle="collapse"
-                                                   href="#collapseS{{$order->seller->id}}{{$temp}}">
-                                                    {{$order->seller->id}}
-                                                </a>
-                                                <div id="collapseS{{$order->seller->id}}{{$temp++}}"
-                                                     class="collapse"
-                                                     data-bs-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <table>
-                                                            <tr>
-                                                                <th>{{$order->seller->first_name}} {{$order->seller->last_name}}</th>
-                                                                <th>{{$order->seller->email}}</th>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>{{ $order->explanations }}</td>
                                             <td>
                                                 <a class="btn" data-bs-toggle="collapse"
                                                    href="#collapseP{{$order->id}}">
@@ -106,21 +87,21 @@
                                                      data-bs-parent="#accordion">
                                                     <div class="card-body">
                                                         <table>
-                                                            @foreach($order->products as $product)
+                                                            @foreach($orders as $product)
                                                                 <tr>
-                                                                    <td>name : {{$product->product_name}}</td>
+                                                                    <td>name : {{$product->titel}}</td>
                                                                     <td>price : {{$product->price}}</td>
-                                                                    <td>count : {{$product->pivot->count}}</td>
+                                                                    <td>count : {{$product->count}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </table>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ $order->order_total_price }}</td>
-                                            <td>{{ $order->balance }}</td>
+                                            <td>{{ $order->total_price }}</td>
+{{--                                            <td>{{ $order->balance }}</td>--}}
                                             <td>
-                                                <form class="" action="{{route('edite_user',['id'=>$order->id])}}"
+                                                <form class="" action="{{route('orders.edit',['id'=>$order->id])}}"
                                                       method="get">
                                                     <button type="submit">
                                                         <i class="fa-regular fa-pen-to-square fa-flip-horizontal"></i>
@@ -128,9 +109,10 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <form class="" action="{{route('delete_order',['id'=>$order->id])}}"
+                                                <form class="" action="{{route('orders.destroy',['id'=>$order->id])}}"
                                                       method="post">
                                                     @csrf
+                                                    @method('delete')
                                                     <button type="submit" onclick="return confirm('Are you sure?')">
                                                         <i class="fa-regular fa-trash-can"></i>
                                                     </button>
@@ -139,18 +121,18 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                    {{--<tfoot>
+                                    <tfoot>
                                     <tr>
                                         <th>مشتری</th>
-                                        <th>فروشنده</th>
-                                        <th>توضیحات</th>
+
+
                                         <th>لیست محصولات</th>
                                         <th>قیمت کل</th>
-                                        <th>بدهی</th>
+
                                         <th>ویرایش</th>
                                         <th>حذف</th>
                                     </tr>
-                                    </tfoot>--}}
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

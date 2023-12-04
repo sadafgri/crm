@@ -33,31 +33,19 @@
         <section class="content">
             <!-- form start -->
             <div class="container-fluid">
-                <form role="form" method="post" action="{{route('save_edited_order',['id'=>$order->id])}}">
+                <form role="form" method="post" action="{{route('orders.update',['id'=>$order->id])}}">
                     @csrf
+                    @method('patch')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="customer_id">customers</label>
                             <select class="form-control" id="customer_id" name="customer_id">
-                                @foreach($customers as $customer)
+                                @foreach($users as $customer)
                                     <option value="{{$customer->id}}"
-                                            @if($customer->id == $order->customer->id) selected @endif>
+                                            @if($customer->id == $order->id) selected @endif>
                                         Email: {{$customer->email}},
                                         name: {{$customer->last_name}},
                                         ID : {{$customer->id}},
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="seller_id">sellers</label>
-                            <select class="form-control" id="seller_id" name="seller_id">
-                                @foreach($sellers as $seller)
-                                    <option value="{{$seller->id}}"
-                                            @if($seller->id == $order->seller->id) selected @endif>
-                                        Email: {{$seller->email}}
-                                        name: {{$seller->last_name}},
-                                        ID : {{$seller->id}},
                                     </option>
                                 @endforeach
                             </select>
@@ -92,27 +80,27 @@
                                                     @endphp--}}
                                                     @foreach($products as $product)
                                                         <tr>
-                                                            <td>{{$product->product_name}}</td>
+                                                            <td>{{$product->titel}}</td>
                                                             <td>{{$product->price}}</td>
-                                                            <td>{{$product->amount_available}}</td>
+                                                            <td>{{$product->inventory}}</td>
                                                             <td>
                                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                                                     <button class="btn btn-link px-2" type="button"
                                                                             onclick="changeProductQuantity(this, -1)">
                                                                         <i class="fas fa-minus"></i>
                                                                     </button>
-                                                                    <input min="0" name="Product_{{$product->id}}"
+                                                                    <input min="0" name="{{$product->id}}"
                                                                            placeholder="0"
                                                                            @php($temp = 0)
-                                                                           @foreach($order->products as $orderProduct)
-                                                                               @if($orderProduct->id == $product->id)
-                                                                                   value="{{$orderProduct->pivot->count}}"
-                                                                           @php($temp += $orderProduct->pivot->count)
+                                                                           @foreach($order_products as $order_Product)
+                                                                               @if($order_Product->id == $product->id)
+                                                                                   value="{{$order_Product->count}}"
+{{--                                                                           @php($temp += $order_Product->pivot->count)--}}
                                                                            @break
                                                                            @endif
                                                                            @endforeach
                                                                            type="number"
-                                                                           max="{{$product->amount_available+$temp}}"
+                                                                           max="{{$product->inventory+$temp}}"
                                                                            class="form-control form-control-sm"
                                                                            style="width: 70px;"/>
                                                                     <button class="btn btn-link px-2" type="button"
@@ -140,20 +128,13 @@
                         <div class="form-group">
                             <label for="order_total_price">order_total_price</label>
                             <input type="number" class="form-control" id="order_total_price" name="order_total_price"
-                                   value="{{$order->order_total_price}}"
+                                   value="{{$order->total_price}}"
                                    placeholder="order_total_price">
                         </div>
                         <div class="form-group">
-                            <label for="balance">balance</label>
-                            <input type="number" class="form-control" id="balance" name="balance"
-                                   readonly
-                                   value="{{$order->balance}}"
-                                   placeholder="balance">
-                        </div>
-                        <div class="form-group">
-                            <label for="explanations">explanations</label>
-                            <textarea class="form-control" id="explanations" name="explanations"
-                                      placeholder="explanations">{{$order->explanations}}</textarea>
+                            <label for="description">description</label>
+                            <textarea class="form-control" id="description" name="description"
+                                      placeholder="description">{{$product->description}}</textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->

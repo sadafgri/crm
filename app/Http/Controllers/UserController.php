@@ -29,6 +29,10 @@ class UserController extends Controller
             'password'=>'required',
             'gender'=>'required',
         ]);
+
+//        $imagename = $request->image->getClientOriginalName();
+//        $request->image->move(public_path('image/users'),$imagename);
+
         DB::table('users')->insert([
             'user_name'=>$request->user_name,
             'first_name'=>$request->first_name,
@@ -44,6 +48,7 @@ class UserController extends Controller
             'created_at'=>date('Y_m_d_H:i:s'),
             'password'=>md5($request->password),
             'gender'=>$request->gender,
+//            'image'=>$imagename,
         ]);
         return redirect()->route('users.index');
     }
@@ -60,8 +65,28 @@ class UserController extends Controller
         return view("users.editUser",['user'=>$users]);
     }
 
-    public function update()
+    public function update(Request $request,$id)
     {
-
+      $users = DB::table('users')->where('id',$id)->update([
+          'user_name'=>$request->user_name,
+        'first_name'=>$request->first_name,
+        'last_name'=>$request->last_name,
+        'phone_number'=>$request->phone_number,
+        'age'=>$request->age,
+        'email'=>$request->email,
+        'address'=>$request->address,
+        'postal_code'=>$request->postal_code,
+        'country'=>$request->country,
+        'city'=>$request->city,
+        'province'=>$request->province,
+        'gender'=>$request->gender,
+        'updated_at'=>date('Y_m_d_H:i:s'),
+    ]);
+      return redirect()->route('users.index');
+    }
+    public function destroy($id)
+    {
+        DB::table('users')->where('id',$id)->update(['status'=>'disable']);
+        return back();
     }
 }

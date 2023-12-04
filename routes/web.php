@@ -15,7 +15,7 @@ Route::view('/login', 'authorize.login')->name('login');
 
 Route::view('/register', 'authorize.register')->name('register');
 
-Route::post('/workplace', function () {
+Route::get('/workplace', function () {
     return view('workplace');
 })->name('workplace');
 
@@ -25,7 +25,7 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');
-Route::post('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/users/{id}/delete', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 //products
@@ -34,12 +34,12 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::patch('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-Route::post('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::post('/products/{id}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //orders
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+Route::any('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 Route::patch('/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
-Route::post('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+Route::delete('/orders/{id}/delete', [OrderController::class, 'destroy'])->name('orders.destroy');

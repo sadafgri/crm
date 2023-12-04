@@ -35,7 +35,7 @@
         <section class="content">
             <!-- form start -->
             <div class="container-fluid">
-                <form role="form" method="post" action="{{route('store_order')}}">
+                <form role="form" method="post" action="{{route('orders.store')}}">
                     @csrf
                     <div class="form-group">
                         <div class="col">
@@ -45,21 +45,10 @@
                         </div>
                         <label for="customer_id">customers</label>
                         <select class="form-control" id="customer_id" name="customer_id">
-                            @foreach($customers as $customer)
+                            @foreach($users as $customer)
                                 <option value="{{$customer->id}}">
                                     name: {{$customer->last_name}},
                                     Email: {{$customer->email}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="seller_id">sellers</label>
-                        <select class="form-control" id="seller_id" name="seller_id">
-                            @foreach($sellers as $seller)
-                                <option value="{{$seller->id}}">
-                                    name: {{$seller->last_name}},
-                                    Email: {{$seller->email}}
                                 </option>
                             @endforeach
                         </select>
@@ -89,20 +78,20 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($products_available as $product)
+                                                @foreach($products as $product)
                                                     <tr>
-                                                        <td>{{$product->product_name}}</td>
+                                                        <td>{{$product->titel}}</td>
                                                         <td>{{$product->price}}</td>
-                                                        <td>{{$product->amount_available}}</td>
+                                                        <td>{{$product->inventory}}</td>
                                                         <td>
                                                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                                                 <button class="btn btn-link px-2" type="button"
                                                                         onclick="changeProductQuantity(this, -1)">
                                                                     <i class="fas fa-minus"></i>
                                                                 </button>
-                                                                <input min="0" name="Product_{{$product->id}}" value="0"
+                                                                <input min="0" name="{{$product->id}}" value="0"
                                                                        type="number"
-                                                                       max="{{$product->amount_available}}"
+                                                                       max="{{$product->inventory}}"
                                                                        class="form-control form-control-sm"
                                                                        style="width: 70px;"/>
                                                                 <button class="btn btn-link px-2" type="button"

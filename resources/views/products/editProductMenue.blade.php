@@ -32,33 +32,34 @@
         <section class="content">
             <!-- form start -->
             <div class="container-fluid">
-                <form role="form" method="post" action="{{route('store_edit_product',['id' => $product->id])}}">
+                <form role="form" method="post" action="{{route('products.update',['id' => $products->id])}}">
                     @csrf
+                    @method('patch')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="product_name">نام محصول</label>
                             <input type="text" class="form-control" id="product_name" name="product_name"
-                                   value="{{$product->product_name}}">
+                                   value="{{$products->titel}}">
                         </div>
                         <div class="form-group">
                             <label for="price">قیمت</label>
                             <input type="number" class="form-control" id="price" name="price"
-                                   value="{{$product->price}}">
+                                   value="{{$products->price}}">
                         </div>
                         <div class="form-group">
                             <label for="amount_available">موجودی</label>
                             <input type="number" class="form-control" id="amount_available" name="amount_available"
-                                   value="{{$product->amount_available}}">
+                                   value="{{$products->inventory}}">
                         </div>
-                        <div class="form-group">
-                            <label for="amount_sold">فروش رقته</label>
-                            <input type="number" class="form-control" id="amount_sold" name="amount_sold"
-                                   value="{{$product->amount_sold}}">
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="amount_sold">فروش رقته</label>--}}
+{{--                            <input type="number" class="form-control" id="amount_sold" name="amount_sold"--}}
+{{--                                   value="{{$product->amount_sold}}">--}}
+{{--                        </div>--}}
                         <div class="form-group">
                             <label for="explanation">توضیحات</label>
                             <textarea class="form-control" rows="4" id="explanation" name="explanation"
-                            >{{$product->explanation}}</textarea>
+                            >{{$products->description}}</textarea>
                         </div>
                     </div>
                     <div class="card-footer">

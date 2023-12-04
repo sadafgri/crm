@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('login')}}" class="nav-link">
+{{--                            <a href="{{route('login')}}" class="nav-link">--}}
                                 <i class="fas fa-sign-out-alt"></i>
                                 <p>خروج</p>
                             </a>
@@ -70,13 +70,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-{{--                            <a href="{{route('addUser')}}" class="nav-link">--}}
+                            <a href="{{route('users.create')}}" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p> کاربر جدید</p>
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('Users_data')}}" class="nav-link">--}}
+                            <a href="{{route('users.index')}}" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
                                 <p>لیست کاربران</p>
                             </a>
@@ -116,13 +116,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-{{--                            <a href="{{route('addProduct')}}" class="nav-link">--}}
+                            <a href="{{route('products.create')}}" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p> محصول جدید</p>
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('Products_data')}}" class="nav-link">--}}
+                            <a href="{{route('products.index')}}" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
                                 <p>لیست محصولات</p>
                             </a>
@@ -139,13 +139,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-{{--                            <a href="{{route('addOrder')}}" class="nav-link">--}}
+                            <a href="{{route('orders.create')}}" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p> سفارش جدید</p>
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('Orders_data')}}" class="nav-link">--}}
+                            <a href="{{route('orders.index')}}" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
                                 <p>لیست سفارشات</p>
                             </a>

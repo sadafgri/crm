@@ -394,6 +394,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($users as $user)
+                                    @if($user->status == 'enable')
                                     <tr>
 {{--                                        <th>{{ $user->role->role_name }}</th>--}}
                                         <td>{{ $user->user_name }}</td>
@@ -418,12 +419,14 @@
                                             <form class="" action="{{route('users.destroy',['id'=>$user->id])}}"
                                                   method="post">
                                                 @csrf
+
                                                 <button type="submit" onclick="return confirm('Are you sure?')">
                                                     <i class="fa-regular fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

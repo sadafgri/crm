@@ -32,68 +32,92 @@
         <section class="content">
             <!-- form start -->
             <div class="container-fluid">
-                <form role="form" method="post" action="{{route('users.store',['id' => $user->id])}}">
+                <form role="form" method="post" action="{{route('users.update',['id' => $user->id])}}">
                     @csrf
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="email">ایمیل</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="{{$user->email}}" value="{{$user->email}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="first_name">نام</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                   placeholder="{{$user->first_name}}" value="{{$user->first_name}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="last_name">نام خانوادگی</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                   placeholder="{{$user->last_name}}" value="{{$user->last_name}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="user_name">نام کاربری</label>
-                            <input type="text" class="form-control" id="user_name" name="user_name"
-                                   placeholder="{{$user->user_name}}" value="{{$user->user_name}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone_number">شماره همراه</label>
-                            <input type="number" class="form-control" id="phone_number" name="phone_number"
-                                   placeholder="{{$user->phone_number}}" value="{{$user->phone_number}}">
-                        </div>
+                    @method('patch')
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="email">ایمیل</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="{{$user->email}}" value="{{$user->email}}">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="first_name">نام</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                       placeholder="{{$user->first_name}}" value="{{$user->first_name}}">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="last_name">نام خانوادگی</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                       placeholder="{{$user->last_name}}" value="{{$user->last_name}}">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="user_name">نام کاربری</label>
+                                <input type="text" class="form-control" id="user_name" name="user_name"
+                                       placeholder="{{$user->user_name}}" value="{{$user->user_name}}">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="phone_number">شماره همراه</label>
+                                <input type="number" class="form-control" id="phone_number" name="phone_number"
+                                       placeholder="{{$user->phone_number}}" value="{{$user->phone_number}}">
+                            </div>
 
-                        <!-- Add the remaining input fields -->
-                        <div class="form-group">
-                            <label for="age">سن</label>
-                            <input type="number" class="form-control" id="age" name="age"
-                                   placeholder="{{$user->age}}" value="{{$user->age}}">
-                        </div>
+                            <!-- Add the remaining input fields -->
+                            <div class="form-group col-4">
+                                <label for="age">سن</label>
+                                <input type="number" class="form-control" id="age" name="age"
+                                       placeholder="{{$user->age}}" value="{{$user->age}}">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="gender">جنسیت</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <option value="male" @if($user->gender == "male") selected @endif>مرد</option>
-                                <option value="female" @if($user->gender == "female") selected @endif>زن</option>
-                            </select>
+                            <div class="col">
+                                <label for="country"> کشور</label>
+                                <input type="text" class="form-control" id="country" name="country"
+                                       placeholder="{{$user->country}}" value="{{$user->country}}">
+                            </div>
+                            <div class="col">
+                                <label for="province">استان</label>
+                                <input type="text" class="form-control" id="province" name="province"
+                                       placeholder="{{$user->province}}" value="{{$user->province}}">
+                            </div>
+                            <div class="col">
+                                <label for="city">شهر</label>
+                                <input type="text" class="form-control" id="city" name="city"
+                                       placeholder="{{$user->city}}" value="{{$user->city}}">
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="postal_code">کد پستی</label>
-                            <input type="number" class="form-control" id="postal_code" name="postal_code"
-                                   placeholder="{{$user->postal_code}}" value="{{$user->postal_code}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address">آدرس</label>
-                            <input type="text" class="form-control" id="address" name="address"
-                                   placeholder="{{$user->address}}" value="{{$user->address}}">
-                        </div>
-
                     </div>
-                    <!-- /.card-body -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="gender">جنسیت</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option value="male" @if($user->gender == "male") selected @endif>مرد</option>
+                                    <option value="female" @if($user->gender == "female") selected @endif>زن</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label for="postal_code">کد پستی</label>
+                                        <input type="number" class="form-control" id="postal_code" name="postal_code"
+                                               placeholder="{{$user->postal_code}}" value="{{$user->postal_code}}">
+                                    </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">ارسال</button>
-                    </div>
+                                    <div class="form-group col-4">
+                                        <label for="address">آدرس</label>
+                                        <input type="text" class="form-control" id="address" name="address"
+                                               placeholder="{{$user->address}}" value="{{$user->address}}">
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">ارسال</button>
+                                </div>
+                            </div>
+                        </div>
                 </form>
             </div>
         </section>

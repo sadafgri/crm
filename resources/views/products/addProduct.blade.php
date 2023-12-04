@@ -33,7 +33,7 @@
         <section class="content">
             <!-- form start -->
             <div class="container-fluid">
-                <form role="form" method="post" action="{{route('store_product')}}" enctype="multipart/form-data">
+                <form role="form" method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -51,11 +51,11 @@
                             <input type="number" class="form-control" id="amount_available" name="amount_available"
                                    placeholder="موجودی">
                         </div>
-                        <div class="form-group">
-                            <label for="amount_sold">فروش رقته</label>
-                            <input type="number" class="form-control" id="amount_sold" name="amount_sold"
-                                   placeholder="فروش رقته">
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="amount_sold">فروش رقته</label>--}}
+{{--                            <input type="number" class="form-control" id="amount_sold" name="amount_sold"--}}
+{{--                                   placeholder="فروش رقته">--}}
+{{--                        </div>--}}
                         <div class="form-group">
                             <label for="explanation">توضیحات</label>
                             <textarea class="form-control" rows="4" id="explanation" name="explanation"

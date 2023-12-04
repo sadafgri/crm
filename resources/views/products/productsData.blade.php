@@ -45,7 +45,6 @@
                                     <th>نام کالا</th>
                                     <th>توضیحات</th>
                                     <th>قیمت</th>
-                                    <th>سفارشات</th>
                                     <th>موجودی</th>
                                     <th>ویرایش</th>
                                     <th>حذف</th>
@@ -54,36 +53,16 @@
                                 <tbody>
                                 @php($temp = 0)
                                 @foreach ($products as $product)
+                                    @if($product->status=="enable")
                                     <tr>
                                         <td>{{ $product->id }}</td>
-                                        <td>{{ $product->product_name }}</td>
-                                        <td>{{ $product->explanation }}</td>
+                                        <td>{{ $product->titel}}</td>
+                                        <td>{{ $product->description }}</td>
                                         <td>{{ $product->price }}</td>
-                                        <td> @if(count($product->orders) > 0)
-                                                <a class="btn" data-bs-toggle="collapse"
-                                                   href="#collapseO{{$product->id}}{{$temp}}">
-                                                    orders
-                                                </a>
-                                                <div id="collapseO{{$product->id}}{{$temp++}}" class="collapse"
-                                                     data-bs-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <table>
-                                                            <th>Order ID</th>
-                                                            <th>Count</th>
-                                                            @foreach($product->orders as $order)
-                                                                <tr>
-                                                                    <td>{{ $order->id }}</td>
-                                                                    <td>{{ $order->pivot->count }}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td>{{ $product->amount_available }}</td>
+                                        <td>{{ $product->inventory }}</td>
+
                                         <td>
-                                            <form action="{{ route('edit_product', ['id' => $product->id]) }}"
+                                            <form action="{{ route('products.edit', ['id' => $product->id]) }}"
                                                   method="get">
                                                 <button type="submit"><i
                                                             class="fa-regular fa-pen-to-square fa-flip-horizontal"></i>
@@ -91,7 +70,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete_product', ['id' => $product->id]) }}"
+                                            <form action="{{ route('products.destroy', ['id' => $product->id]) }}"
                                                   method="post">
                                                 @csrf
                                                 <button type="submit" onclick="return confirm('Are you sure?')"><i
@@ -99,6 +78,7 @@
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                                 <tfoot>
@@ -107,7 +87,6 @@
                                     <th>نام کالا</th>
                                     <th>توضیحات</th>
                                     <th>قیمت</th>
-                                    <th>سفارشات</th>
                                     <th>موجودی</th>
                                     <th>ویرایش</th>
                                     <th>حذف</th>
