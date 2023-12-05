@@ -48,7 +48,7 @@ class ProductController extends Controller
             'price'=>$request->price,
             'inventory'=>$request->amount_available,
             'description'=>$request->explanation,
-            'update_at'=>date('Y_m_d_H:i:s'),
+            'updated_at'=>date('Y_m_d_H:i:s'),
         ]);
         return redirect()->route('products.index');
     }

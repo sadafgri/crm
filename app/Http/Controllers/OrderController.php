@@ -56,7 +56,6 @@ class OrderController extends Controller
         foreach($products as $product) {
             foreach ($data as $key=>$value)
                 if ($product->id == $key) {
-
                     DB::table('order_products')->insert([
                         'order_id' => $order_id,
                         'product_id' => $product->id,
@@ -94,7 +93,7 @@ class OrderController extends Controller
         }
         DB::table('orders')->where('id',$id)->update([
              'total_price'=>$total_price,
-            'update_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
         ]);
         DB::table('order_products')->where('id',$id)->delete();
                 foreach ($products as $product){
@@ -107,7 +106,7 @@ class OrderController extends Controller
                                     'product_id' => $product->id,
                                     'count' => $count,
                                     'created_at' => date('Y-m-d H:i:s'),
-                                    'update_at' => date('Y-m-d H:i:s'),
+                                    'updated_at' => date('Y-m-d H:i:s'),
                                 ]);
                             }
                         }
