@@ -89,13 +89,13 @@
                                                                             onclick="changeProductQuantity(this, -1)">
                                                                         <i class="fas fa-minus"></i>
                                                                     </button>
-                                                                    <input min="0" name="{{$product->id}}"
+                                                                    <input min="0" name="product_{{$product->id}}"
                                                                            placeholder="0"
                                                                            @php($temp = 0)
-                                                                           @foreach($order_products as $order_Product)
+                                                                           @foreach($order->products as $order_Product)
                                                                                @if($order_Product->id == $product->id)
-                                                                                   value="{{$order_Product->count}}"
-{{--                                                                           @php($temp += $order_Product->pivot->count)--}}
+                                                                                   value="{{$order_Product->pivot->count}}"
+                                                                           @php($temp += $order_Product->pivot->count)
                                                                            @break
                                                                            @endif
                                                                            @endforeach
@@ -103,6 +103,11 @@
                                                                            max="{{$product->inventory+$temp}}"
                                                                            class="form-control form-control-sm"
                                                                            style="width: 70px;"/>
+                                                                    @error('product_{{$product->id}}')
+                                                                    <div class="alert alert-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                    @enderror
                                                                     <button class="btn btn-link px-2" type="button"
                                                                             onclick="changeProductQuantity(this, 1)">
                                                                         <i class="fas fa-plus"></i>
@@ -135,6 +140,11 @@
                             <label for="description">description</label>
                             <textarea class="form-control" id="description" name="description"
                                       placeholder="description">{{$product->description}}</textarea>
+                            @error('description')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

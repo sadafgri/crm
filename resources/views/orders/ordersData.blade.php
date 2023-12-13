@@ -57,24 +57,25 @@
                                         <tr>
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->title}}</td>
-                                            <td>
-                                                <a class="btn" data-bs-toggle="collapse"
-                                                   href="#collapseC{{$order->id}}{{$temp}}">
-                                                    {{$order->id}}
-                                                </a>
-                                                <div id="collapseC{{$order->id}}{{$temp++}}"
-                                                     class="collapse"
-                                                     data-bs-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <table>
-                                                            <tr>
-                                                                <th>{{$order->first_name}} {{$order->last_name}}</th>
-                                                                <th>{{$order->email}}</th>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <td>{{$order->user->first_name}}</td>
+{{--                                            <td>--}}
+{{--                                                <a class="btn" data-bs-toggle="collapse"--}}
+{{--                                                   href="#collapseC{{$order->id}}{{$temp}}">--}}
+{{--                                                    {{$order->id}}--}}
+{{--                                                </a>--}}
+{{--                                                <div id="collapseC{{$order->id}}{{$temp++}}"--}}
+{{--                                                     class="collapse"--}}
+{{--                                                     data-bs-parent="#accordion">--}}
+{{--                                                    <div class="card-body">--}}
+{{--                                                        <table>--}}
+{{--                                                            <tr>--}}
+{{--                                                                <th>{{$order->first_name}} {{$order->last_name}}</th>--}}
+{{--                                                                <th>{{$order->email}}</th>--}}
+{{--                                                            </tr>--}}
+{{--                                                        </table>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
                                             <td>
                                                 <a class="btn" data-bs-toggle="collapse"
                                                    href="#collapseP{{$order->id}}">
@@ -84,11 +85,11 @@
                                                      data-bs-parent="#accordion">
                                                     <div class="card-body">
                                                         <table>
-                                                            @foreach($orders as $product)
+                                                            @foreach($order->products as $product)
                                                                 <tr>
                                                                     <td>name : {{$product->titel}}</td>
                                                                     <td>price : {{$product->price}}</td>
-                                                                    <td>count : {{$product->count}}</td>
+                                                                    <td>count : {{$product->pivot->count}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </table>

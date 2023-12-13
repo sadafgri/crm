@@ -18,9 +18,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
+        'first_name',
+        'last_name',
+        'age',
         'email',
+        'gender',
+        'phone_number',
         'password',
+        'image',
+        'address',
+        'postal_code',
+        'country',
+        'province',
+        'city'
     ];
 
     /**
@@ -32,7 +43,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
     /**
      * The attributes that should be cast.
      *

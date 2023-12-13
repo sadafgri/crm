@@ -40,16 +40,31 @@
                             <label for="product_name">نام محصول</label>
                             <input type="text" class="form-control" id="product_name" name="product_name"
                                    value="{{$products->titel}}">
+                            @error('product_name')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="price">قیمت</label>
                             <input type="number" class="form-control" id="price" name="price"
                                    value="{{$products->price}}">
+                            @error('price')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="amount_available">موجودی</label>
                             <input type="number" class="form-control" id="amount_available" name="amount_available"
                                    value="{{$products->inventory}}">
+                            @error('amount_available')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 {{--                        <div class="form-group">--}}
 {{--                            <label for="amount_sold">فروش رقته</label>--}}
@@ -60,6 +75,11 @@
                             <label for="explanation">توضیحات</label>
                             <textarea class="form-control" rows="4" id="explanation" name="explanation"
                             >{{$products->description}}</textarea>
+                            @error('explanation')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-footer">

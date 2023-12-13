@@ -156,6 +156,11 @@
                             <label for="address">آدرس</label>
                             <input type="text" class="form-control" id="address" name="address"
                                    placeholder="آدرس را وارد کنید">
+                            @error('address')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeProductRequest;
+use App\Http\Requests\updateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,18 +17,12 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = DB::table('products')->get();
+     $products = Product::all();
         return view("products.productsData",['products'=>$products]);
 }
-    public function store(Request $request)
+    public function store(storeProductRequest $request)
     {
-//        $request->validate([
-//            'title'=>'required',
-//            'price'=>'required',
-//            'inventory'=>'required',
-//            'description'=>'required',
-//        ]);
-        DB::table('products')->insert([
+        Product::create([
             'titel'=>$request->product_name,
             'price'=>$request->price,
             'inventory'=>$request->amount_available,
@@ -37,24 +34,23 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $products = DB::table('products')->where('id',$id)->first();
+        $products = Product::find($id);
         return view("products.editProductMenue",['products'=>$products]);
     }
 
-    public function update(Request $request,$id)
+    public function update(updateProductRequest $request,$id)
     {
-        $products = DB::table('products')->where('id',$id)->update([
+        Product::where('id',$id)->update([
             'titel'=>$request->product_name,
             'price'=>$request->price,
             'inventory'=>$request->amount_available,
             'description'=>$request->explanation,
-            'updated_at'=>date('Y_m_d_H:i:s'),
-        ]);
+            ]);
         return redirect()->route('products.index');
     }
     public function destroy($id)
     {
-        DB::table('products')->where('id',$id)->update(['status'=>'disable']);
+         Product::where('id',$id)->update(['status'=>'disable']);
         return back();
     }
 }

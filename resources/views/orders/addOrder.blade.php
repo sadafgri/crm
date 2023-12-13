@@ -42,6 +42,11 @@
                             <label for="order_name">اسم سفارش</label>
                             <input type="text" class="form-control" id="order_name" name="order_name"
                                    placeholder="اسم سفارش">
+                            @error('order_name')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <label for="customer_id">customers</label>
                         <select class="form-control" id="customer_id" name="customer_id">
@@ -73,7 +78,7 @@
                                                 <tr>
                                                     <th>Product Name</th>
                                                     <th>Product Price</th>
-                                                    <th>Amount Available</th>
+{{--                                                    <th>Amount Available</th>--}}
                                                     <th>Amount Requested</th>
                                                 </tr>
                                                 </thead>
@@ -89,11 +94,16 @@
                                                                         onclick="changeProductQuantity(this, -1)">
                                                                     <i class="fas fa-minus"></i>
                                                                 </button>
-                                                                <input min="0" name="{{$product->id}}" value="0"
+                                                                <input min="0" name="product_{{$product->id}}" value="0"
                                                                        type="number"
                                                                        max="{{$product->inventory}}"
                                                                        class="form-control form-control-sm"
                                                                        style="width: 70px;"/>
+                                                                @error('product_{{$product->id}}')
+                                                                <div class="alert alert-danger">
+                                                                    {{ $message }}
+                                                                </div>
+                                                                @enderror
                                                                 <button class="btn btn-link px-2" type="button"
                                                                         onclick="changeProductQuantity(this, 1)">
                                                                     <i class="fas fa-plus"></i>
@@ -119,6 +129,11 @@
                             <label for="explanations">explanations</label>
                             <textarea class="form-control" id="explanations" name="explanations"
                                       placeholder="explanations"></textarea>
+                            @error('explanations')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

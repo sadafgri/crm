@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeUserRequest;
+use App\Http\Requests\updateUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,29 +14,17 @@ class UserController extends Controller
     {
      return view("users.addUser");
     }
-
-    public function store(Request $request)
+    public function index()
     {
-        $request->validate([
-            'user_name'=>'required',
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'phone_number'=>'required',
-            'age'=>'required',
-            'email'=>'required',
-            'address'=>'required',
-            'postal_code'=>'required',
-            'country'=>'required',
-            'city'=>'required',
-            'province'=>'required',
-            'password'=>'required',
-            'gender'=>'required',
-        ]);
-
+        $users = User::all();
+        return view("users.usersData",['users'=>$users]);
+    }
+    public function store(storeUserRequest $request)
+    {
 //        $imagename = $request->image->getClientOriginalName();
 //        $request->image->move(public_path('image/users'),$imagename);
 
-        DB::table('users')->insert([
+       User::create([
             'user_name'=>$request->user_name,
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
@@ -45,29 +36,19 @@ class UserController extends Controller
             'country'=>$request->country,
             'city'=>$request->city,
             'province'=>$request->province,
-            'created_at'=>date('Y_m_d_H:i:s'),
             'password'=>md5($request->password),
             'gender'=>$request->gender,
-//            'image'=>$imagename,
         ]);
         return redirect()->route('users.index');
     }
-
-    public function index()
-    {
-      $users = DB::table('users')->get();
-      return view("users.usersData",['users'=>$users]);
-    }
-
     public function edit($id)
     {
-        $users = DB::table('users')->where('id',$id)->first();
+        $users = User::find($id);
         return view("users.editUser",['user'=>$users]);
     }
-
-    public function update(Request $request,$id)
+    public function update(updateUserRequest $request,$id)
     {
-      $users = DB::table('users')->where('id',$id)->update([
+        User::where('id',$id)->update([
           'user_name'=>$request->user_name,
         'first_name'=>$request->first_name,
         'last_name'=>$request->last_name,
@@ -80,13 +61,12 @@ class UserController extends Controller
         'city'=>$request->city,
         'province'=>$request->province,
         'gender'=>$request->gender,
-        'updated_at'=>date('Y_m_d_H:i:s'),
     ]);
       return redirect()->route('users.index');
     }
     public function destroy($id)
     {
-        DB::table('users')->where('id',$id)->update(['status'=>'disable']);
+        User::where('id',$id)->update(['status'=>'disable']);
         return back();
     }
 }

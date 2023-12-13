@@ -41,26 +41,51 @@
                                 <label for="email">ایمیل</label>
                                 <input type="email" class="form-control" id="email" name="email"
                                        placeholder="{{$user->email}}" value="{{$user->email}}">
+                                @error('email')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="form-group col-4">
                                 <label for="first_name">نام</label>
                                 <input type="text" class="form-control" id="first_name" name="first_name"
                                        placeholder="{{$user->first_name}}" value="{{$user->first_name}}">
+                                @error('first_name')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="form-group col-4">
                                 <label for="last_name">نام خانوادگی</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name"
                                        placeholder="{{$user->last_name}}" value="{{$user->last_name}}">
+                                @error('last_name')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="form-group col-4">
                                 <label for="user_name">نام کاربری</label>
                                 <input type="text" class="form-control" id="user_name" name="user_name"
                                        placeholder="{{$user->user_name}}" value="{{$user->user_name}}">
+                                @error('user_name')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="form-group col-4">
                                 <label for="phone_number">شماره همراه</label>
                                 <input type="number" class="form-control" id="phone_number" name="phone_number"
                                        placeholder="{{$user->phone_number}}" value="{{$user->phone_number}}">
+                                @error('phone_number')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
 
                             <!-- Add the remaining input fields -->
@@ -68,22 +93,42 @@
                                 <label for="age">سن</label>
                                 <input type="number" class="form-control" id="age" name="age"
                                        placeholder="{{$user->age}}" value="{{$user->age}}">
+                                @error('age')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
 
                             <div class="col">
                                 <label for="country"> کشور</label>
                                 <input type="text" class="form-control" id="country" name="country"
                                        placeholder="{{$user->country}}" value="{{$user->country}}">
+                                @error('country')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="col">
                                 <label for="province">استان</label>
                                 <input type="text" class="form-control" id="province" name="province"
                                        placeholder="{{$user->province}}" value="{{$user->province}}">
+                                @error('province')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="col">
                                 <label for="city">شهر</label>
                                 <input type="text" class="form-control" id="city" name="city"
                                        placeholder="{{$user->city}}" value="{{$user->city}}">
+                                @error('city')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -102,12 +147,22 @@
                                         <label for="postal_code">کد پستی</label>
                                         <input type="number" class="form-control" id="postal_code" name="postal_code"
                                                placeholder="{{$user->postal_code}}" value="{{$user->postal_code}}">
+                                        @error('postal_code')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-4">
                                         <label for="address">آدرس</label>
                                         <input type="text" class="form-control" id="address" name="address"
                                                placeholder="{{$user->address}}" value="{{$user->address}}">
+                                        @error('address')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
 
                                 </div>

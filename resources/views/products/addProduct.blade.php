@@ -40,16 +40,31 @@
                             <label for="product_name">نام محصول</label>
                             <input type="text" class="form-control" id="productName" name="product_name"
                                    placeholder="نام">
+                            @error('product_name')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="price">قیمت</label>
                             <input type="number" class="form-control" id="price" name="price"
                                    placeholder="قیمت">
+                            @error('price')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="amount_available">موجودی</label>
                             <input type="number" class="form-control" id="amount_available" name="amount_available"
                                    placeholder="موجودی">
+                            @error('amount_available')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 {{--                        <div class="form-group">--}}
 {{--                            <label for="amount_sold">فروش رقته</label>--}}
@@ -60,6 +75,11 @@
                             <label for="explanation">توضیحات</label>
                             <textarea class="form-control" rows="4" id="explanation" name="explanation"
                                       placeholder="لطفا توضیحات مربوطه را وارد کنید"></textarea>
+                            @error('explanation')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
