@@ -21,13 +21,13 @@
             <form action="{{route('register')}}" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="نام و نام خانوادگی">
+                    <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name" value="{{ old('name')}}">
                     <div class="input-group-append">
                         <span class="fa fa-user input-group-text"></span>
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="ایمیل">
+                    <input type="email" class="form-control" placeholder="ایمیل" name="email" value="{{ old('email') }}">
                     <div class="input-group-append">
                         <span class="fa fa-envelope input-group-text"></span>
                     </div>

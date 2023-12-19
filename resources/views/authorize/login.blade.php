@@ -32,7 +32,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" required placeholder="رمز عبور"
-                           name="password">
+                           name="password" >
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="fa-solid fa-fingerprint"></i>
@@ -55,17 +55,17 @@
 
             <div class="social-auth-links text-center mb-3">
                 <p>- یا -</p>
-                <a href="#" class="btn btn-block btn-primary">
+                <a href="" class="btn btn-block btn-primary">
                     <i class="fa-brands fa-facebook fa-lg"></i> ورود با اکانت فیسوبک
                 </a>
-                <a href="#" class="btn btn-block btn-danger">
+                <a href="" class="btn btn-block btn-danger">
                     <i class="fa-brands fa-google"></i> ورود با اکانت گوگل
                 </a>
             </div>
             <!-- /.social-auth-links -->
 
             <p class="mb-1">
-                <a href="#">رمز عبورم را فراموش کرده ام.</a>
+                <a href="">رمز عبورم را فراموش کرده ام.</a>
             </p>
             <p class="mb-0">
                 <a href="{{route('register')}}" class="text-center">ثبت نام</a>

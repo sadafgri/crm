@@ -43,3 +43,7 @@ Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 Route::any('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 Route::patch('/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 Route::delete('/orders/{id}/delete', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+//login and register
+Route::post('/register',[\App\Http\Controllers\Api\UserController::class,'createUser'])->name('register');
+Route::post('/login', [\App\Http\Controllers\Api\UserController::class, 'loginUser'])->name('login');
