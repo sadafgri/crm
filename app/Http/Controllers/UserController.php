@@ -71,7 +71,12 @@ class UserController extends Controller
             'province' => $request->province,
             'gender' => $request->gender,
         ]);
-        return redirect()->route('users.index');
+        if(auth()->user()->role == 'admin'){
+
+            return redirect()->route('users.index');
+        }else{
+            return redirect()->route('workplace');
+        }
     }
 
     public function destroy($id)

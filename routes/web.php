@@ -35,8 +35,6 @@ Route::group(['middleware'=>'checkrole:admin'],function (){
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::post('/users/{id}/delete', [UserController::class, 'destroy'])->name('users.destroy');
 
     //factors
@@ -72,6 +70,10 @@ Route::group(['middleware'=>'checkrole:admin'],function (){
         Route::patch('/{id}', [OrderController::class, 'update'])->name('orders.update');
         Route::delete('/{id}/delete', [OrderController::class, 'destroy'])->name('orders.destroy');
     });
+
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
 });
 
 //login and register

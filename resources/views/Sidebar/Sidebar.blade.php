@@ -10,7 +10,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-{{--                            <a href="{{route('editProfile')}}" class="nav-link">--}}
+                            <a href="{{route('users.edit' , ['id'=>auth()->user()->id])}}" class="nav-link">
                                 <i class="fas fa-user-edit"></i>
                                 <p>ویرایش پروفایل</p>
                             </a>

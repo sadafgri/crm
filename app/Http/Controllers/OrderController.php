@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         if (auth()->user()->role == "customer") {
-            $orders = auth()->user()->orders()->orderBy('id')->get();
+            $orders = auth()->user()->orders()->orderBy('id')->where('status', '=', 'enable')->get();
             return view('orders.ordersData', ['orders' => $orders]);
         } else {
             $orders = Order::OrderBy('id')->where('status', '=', 'enable')->get();

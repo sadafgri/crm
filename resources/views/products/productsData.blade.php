@@ -56,8 +56,8 @@
                                                             <div class="col">
                                                                 <label for="filtername">نام محصول</label>
                                                                 <input type="text" class="form-control"
-                                                                       id="filtername"
-                                                                       name="filtername"
+                                                                       id="filter[titel]"
+                                                                       name="filter[titel]"
                                                                        placeholder="نام محصول"
                                                                        @if(isset($_GET['filtername']))
                                                                            value="{{$_GET['filtername']}}"
@@ -70,7 +70,7 @@
                                                                         <label for="filterprice"
                                                                                id="filterprice">از</label>
                                                                         <input type="number" class="form-control"
-                                                                               id="filterpriceMin" name="filterpriceMin"
+                                                                               id="filter[PriceMin]" name="filter[priceMin]"
                                                                                placeholder="از"
                                                                                @if(isset($_GET['filterpriceMin']))
                                                                                    value="{{$_GET['filterpriceMin']}}"
@@ -79,7 +79,7 @@
                                                                     <div class="col">
                                                                         <label for="filterpriceMax">تا</label>
                                                                         <input type="number" class="form-control"
-                                                                               id="filterpriceMax" name="filterpriceMax"
+                                                                               id="filter[PriceMax]" name="filter[priceMax]"
                                                                                placeholder="تا"
                                                                                @if(isset($_GET['filterpriceMax']))
                                                                                    value="{{$_GET['filterpriceMax']}}"
@@ -94,7 +94,7 @@
                                                                         <label for="filtermojodi"
                                                                                id="filtermojodi">از</label>
                                                                         <input type="number" class="form-control"
-                                                                               id="filtermojodiMin" name="filtermojodiMin"
+                                                                               id="filtermojodiMin" name="filter[mojodiMin]"
                                                                                placeholder="از"
                                                                                @if(isset($_GET['filtermojodiMin']))
                                                                                    value="{{$_GET['filtermojodiMin']}}"
@@ -103,7 +103,7 @@
                                                                     <div class="col">
                                                                         <label for="filterAgeMax">تا</label>
                                                                         <input type="number" class="form-control"
-                                                                               id="filtermojodi" name="filtermojodiMax"
+                                                                               id="filtermojodi" name="filter[mojodiMax]"
                                                                                placeholder="تا"
                                                                                @if(isset($_GET['filtermojodiMax']))
                                                                                    value="{{$_GET['filtermojodiMax']}}"
