@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class storeOrderRequest extends FormRequest
+class LoginAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,14 @@ class storeOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'explanations'=>'required|max:255',
-            'order_name'=>'required|max:255',
+            'email'=>'required|email',
+            'password'=>'required'
         ];
+    }
+    public function failedValidation(validator|\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $errors=$validator->errors();
+        $redirect= redirect()->back()->withInput()->withErrors($errors);
+        throw new HttpResponseException($redirect);
     }
 }

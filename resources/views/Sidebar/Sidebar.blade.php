@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('login')}}" class="nav-link">--}}
+                            <a href="{{route('logout')}}" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <p>خروج</p>
                             </a>
@@ -60,6 +60,7 @@
                         </li>
                     </ul>
                 </li>
+                @if(auth()->user()->role =='admin')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="far fa-user-circle nav-icon"></i>
@@ -93,19 +94,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-{{--                            <a href="{{route('addCheck')}}" class="nav-link">--}}
+                            <a href="{{route('checks.create')}}" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
                                 <p> فاکتور جدید</p>
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('Checks_data')}}" class="nav-link">--}}
+                            <a href="{{route('checks.index')}}" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
                                 <p>لیست فاکتورها</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+                @endcanany
+                @if(auth()->user()->role =='admin' || auth()->user()->role =='seller' )
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-tags nav-icon"></i>
@@ -129,6 +132,8 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+                @if(auth()->user()->role =='admin' || auth()->user()->role =='customer' )
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-cart-arrow-down nav-icon"></i>
@@ -152,6 +157,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-cash-register nav-icon"></i>

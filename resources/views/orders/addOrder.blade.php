@@ -50,12 +50,19 @@
                         </div>
                         <label for="customer_id">customers</label>
                         <select class="form-control" id="customer_id" name="customer_id">
+                            @if(auth()->user()->role == "customer")
+                                <option value="{{auth()->user()->id}}">
+                                Email: {{auth()->user()->email}},
+                                name: {{auth()->user()->first_name}},
+                                </option>
+                                @else
                             @foreach($users as $customer)
                                 <option value="{{$customer->id}}">
                                     name: {{$customer->last_name}},
                                     Email: {{$customer->email}}
                                 </option>
                             @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="card-body">

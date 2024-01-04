@@ -23,7 +23,7 @@ class updateOrderRequest extends FormRequest
     {
         return [
             'description'=>'required:255',
-            'product_{{$product->id}}'=>'required:255',
+//            'product_{{$product->id}}'=>'required:255',
         ];
     }
 }

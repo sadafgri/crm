@@ -39,7 +39,9 @@
                         <!-- small box -->
                         <div class="bg-color-1 small-box">
                             <div class="inner">
-                                <h3>{{--{{$customer_count}}--}}</h3>
+                                <h3>
+                                    {{$customer_count}}
+                                </h3>
                                 <p>تعداد مشتریان</p>
                             </div>
                             <div class="icon">
@@ -54,7 +56,9 @@
                         <!-- small box -->
                         <div class="small-box bg-color-2">
                             <div class="inner">
-                                <h3>{{--{{$factor_count}}--}}</h3>
+                                <h3>
+                                    {{$factor_count}}
+                                </h3>
                                 <p>تعداد فاکتورها</p>
                             </div>
                             <div class="icon">
@@ -69,7 +73,9 @@
                         <!-- small box -->
                         <div class="small-box bg-color-3">
                             <div class="inner">
-                                <h3>{{--{{$order_count}}--}}</h3>
+                                <h3>
+                                    {{$order_count}}
+                                </h3>
                                 <p>تعداد سفارشات</p>
                             </div>
                             <div class="icon">
@@ -84,7 +90,9 @@
                         <!-- small box -->
                         <div class="small-box bg-color-4">
                             <div class="inner">
-                                <h3>{{--{{$product_count}}--}}</h3>
+                                <h3>
+                                    {{$product_count}}
+                                </h3>
                                 <p>تعداد محصولات</p>
                             </div>
                             <div class="icon">

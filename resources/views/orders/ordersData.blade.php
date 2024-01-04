@@ -29,6 +29,85 @@
 
         @include('.header.data.ordersData_header')
         <!-- Main content -->
+        @if(auth()->user()->role =='admin')
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div id="accordionHead">
+                                <form role="form" method="get" action="{{route('orders.filter')}} ">
+                                    <div class="card">
+                                        <div class="card-header bg-light">
+                                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#fillters">
+                                                فیلتر ها
+                                            </a>
+                                        </div>
+                                        <div class="collapse" id="fillters" data-bs-parent="#accordionHead">
+                                            <div class="card-body">
+                                                <div class="form-control">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <label for="filterordername">نام سفارش</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="filterordername"
+                                                                       name="filterordername"
+                                                                       placeholder="نام سفارش"
+                                                                       @if(isset($_GET['filterordername']))
+                                                                           value="{{$_GET['filterordername']}}"
+                                                                    @endif>
+                                                            </div>
+                                                            <div class="col">
+                                                                <label for="filtername">نام سفارش دهنده</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="filtername"
+                                                                       name="filtername"
+                                                                       placeholder=" نام سفارش دهنده"
+                                                                       @if(isset($_GET['filtername']))
+                                                                           value="{{$_GET['filtername']}}"
+                                                                    @endif>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <label for="filtetotalprice"> قیمت نهایی</label>
+                                                                        <label for="filtertotalpriceMin"
+                                                                               id="filtertotalpriceMin">از</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filtertotalpriceMin" name="filtertotalpriceMin"
+                                                                               placeholder="از"
+                                                                               @if(isset($_GET['filtertotalpriceMin']))
+                                                                                   value="{{$_GET['filtertotalpriceMin']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="filtertotalpriceMax">تا</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filtertotalpriceMax" name="filtertotalpriceMax"
+                                                                               placeholder="تا"
+                                                                               @if(isset($_GET['filtertotalpriceMax']))
+                                                                                   value="{{$_GET['filtertotalpriceMax']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-info">فیلتر</button>
+                                                    <a href="{{--{{ route('Users_data') }}--}}">
+                                                        <button type="button" class="btn btn-warning">حذف فیلتر ها</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            @endif
         <section class="content">
             <div class="row">
                 <div class="col-12">

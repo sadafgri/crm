@@ -53,4 +53,20 @@ class ProductController extends Controller
          Product::where('id',$id)->update(['status'=>'disable']);
         return back();
     }
+
+    public function filter(Request $request)
+    {
+        $products = Product::query();
+        if ($request->filtername) {
+            $products->where('titel', $request->filtername);
+        }
+        if ($request->filterpriceMin && $request->filterpriceMax) {
+            $products ->whereBetween('price', [$request->filterpriceMin, $request->filterpriceMax]);
+        }
+        if ($request->filtermojodiMin && $request->filtermojodiMax) {
+            $products ->whereBetween('inventory', [$request->filtermojodiMin, $request->filtermojodiMax]);
+        }
+        $productResults = $products->get();
+        return view("products.productsData",['products'=>$productResults]);
+    }
 }

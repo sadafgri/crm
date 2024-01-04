@@ -34,8 +34,8 @@ class storeUserRequest extends FormRequest
             'gender'=> 'required:male,female,other',
             'postal_code'=> 'required:8',
             'address'=> 'required:255',
-            'password'=> 'required_with:password|same:password',
-            'password_confirmation' => 'min6',
+            'password'=> 'required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => '',
         ];
     }
 }

@@ -31,7 +31,8 @@ class User extends Authenticatable
         'postal_code',
         'country',
         'province',
-        'city'
+        'city',
+        'role'
     ];
 
     /**

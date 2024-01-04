@@ -40,6 +40,12 @@
                         <div class="form-group">
                             <label for="customer_id">customers</label>
                             <select class="form-control" id="customer_id" name="customer_id">
+                                @if(auth()->user()->role == "customer")
+                                    <option value="{{auth()->user()->id}}">
+                                        Email: {{auth()->user()->email}},
+                                        name: {{auth()->user()->first_name}},
+                                    </option>
+                                @else
                                 @foreach($users as $customer)
                                     <option value="{{$customer->id}}"
                                             @if($customer->id == $order->id) selected @endif>
@@ -48,6 +54,7 @@
                                         ID : {{$customer->id}},
                                     </option>
                                 @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="card-body">

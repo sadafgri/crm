@@ -32,6 +32,100 @@
 
         @include('.header.data.productsData_header')
         <!-- Main content -->
+
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div id="accordionHead">
+                                @if(auth()->user()->role =='admin')
+                                <form role="form" method="get" action="{{route('products.filter')}} ">
+                                    <div class="card">
+                                        <div class="card-header bg-light">
+                                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#fillters">
+                                                فیلتر ها
+                                            </a>
+                                        </div>
+                                        <div class="collapse" id="fillters" data-bs-parent="#accordionHead">
+                                            <div class="card-body">
+                                                <div class="form-control">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <label for="filtername">نام محصول</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="filtername"
+                                                                       name="filtername"
+                                                                       placeholder="نام محصول"
+                                                                       @if(isset($_GET['filtername']))
+                                                                           value="{{$_GET['filtername']}}"
+                                                                    @endif>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <label for="filterprice"> قیمت</label>
+                                                                        <label for="filterprice"
+                                                                               id="filterprice">از</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filterpriceMin" name="filterpriceMin"
+                                                                               placeholder="از"
+                                                                               @if(isset($_GET['filterpriceMin']))
+                                                                                   value="{{$_GET['filterpriceMin']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="filterpriceMax">تا</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filterpriceMax" name="filterpriceMax"
+                                                                               placeholder="تا"
+                                                                               @if(isset($_GET['filterpriceMax']))
+                                                                                   value="{{$_GET['filterpriceMax']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <label for="filtermojodi"> موجودی</label>
+                                                                        <label for="filtermojodi"
+                                                                               id="filtermojodi">از</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filtermojodiMin" name="filtermojodiMin"
+                                                                               placeholder="از"
+                                                                               @if(isset($_GET['filtermojodiMin']))
+                                                                                   value="{{$_GET['filtermojodiMin']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="filterAgeMax">تا</label>
+                                                                        <input type="number" class="form-control"
+                                                                               id="filtermojodi" name="filtermojodiMax"
+                                                                               placeholder="تا"
+                                                                               @if(isset($_GET['filtermojodiMax']))
+                                                                                   value="{{$_GET['filtermojodiMax']}}"
+                                                                            @endif>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-info">فیلتر</button>
+                                                    <a href="{{--{{ route('Users_data') }}--}}">
+                                                        <button type="button" class="btn btn-warning">حذف فیلتر ها</button>
+                                                    </a>
+                                                </div>
+                                                @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </form>
+                            </div>
         <section class="content">
             <div class="row">
                 <div class="col-12">
