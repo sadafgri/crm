@@ -27,10 +27,11 @@ class LoginAuthRequest extends FormRequest
             'password'=>'required'
         ];
     }
-    public function failedValidation(validator|\Illuminate\Contracts\Validation\Validator $validator)
+    public function messages(): array
     {
-        $errors=$validator->errors();
-        $redirect= redirect()->back()->withInput()->withErrors($errors);
-        throw new HttpResponseException($redirect);
+        return [
+            'email'=>'email not validate',
+            'password'=>'password not validate',
+        ];
     }
 }

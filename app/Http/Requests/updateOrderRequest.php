@@ -22,7 +22,7 @@ class updateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description'=>'required:255',
+//            'description'=>'required:255',
 //            'product_{{$product->id}}'=>'required:255',
         ];
     }

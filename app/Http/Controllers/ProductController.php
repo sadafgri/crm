@@ -12,48 +12,87 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function create()
-    {
-        return view('products.addProduct');
-    }
+//    public function create()
+//    {
+//        return view('products.addProduct');
+//    }
 
     public function index()
     {
      $products = Product::all();
-        return view("products.productsData",['products'=>$products]);
-}
+        return response()->json([
+            'status' => true,
+            'message' => 'Products retrieved successfully',
+            'data' => $products
+        ]);
+    }
     public function store(storeProductRequest $request)
     {
-        Product::create([
+       $product = Product::create([
             'titel'=>$request->product_name,
             'price'=>$request->price,
             'inventory'=>$request->amount_available,
             'description'=>$request->explanation,
             'created_at'=>date('Y_m_d_H:i:s'),
         ]);
-        return redirect()->route('products.index');
+        return response()->json([
+            'message' => 'Product created successfully',
+            'data' => $product
+        ], 201);
     }
 
-    public function edit($id)
-    {
-        $products = Product::find($id);
-        return view("products.editProductMenue",['products'=>$products]);
-    }
+//    public function edit($id)
+//    {
+//        $products = Product::find($id);
+//        if (!$products) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'Product not found'
+//            ], 404);
+//        }
+//        // Return the product as JSON
+//        return response()->json([
+//            'status' => true,
+//            'message' => 'Product retrieved successfully',
+//            'data' => $products
+//        ]);
+//    }
 
     public function update(updateProductRequest $request,$id)
     {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
         Product::where('id',$id)->update([
             'titel'=>$request->product_name,
             'price'=>$request->price,
             'inventory'=>$request->amount_available,
             'description'=>$request->explanation,
             ]);
-        return redirect()->route('products.index');
+        return response()->json([
+            'status' => true,
+            'message' => 'Product updated successfully',
+            'data' => Product::find($id)
+        ], 200);
     }
     public function destroy($id)
     {
-         Product::where('id',$id)->update(['status'=>'disable']);
-        return back();
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
+        Product::where('id',$id)->update(['status'=>'disable']);
+        return response()->json([
+            'status' => true,
+            'message' => 'Product delete successfully'
+        ], 200);
     }
 
     public function filter(Request $request)
@@ -79,6 +118,10 @@ class ProductController extends Controller
               $minPriceFilter , $maxPriceFilter ,
            AllowedFilter::exact('titel')->ignore(null),
        ])->get();
-        return view("products.productsData",['products'=>$products]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Products filtered successfully',
+            'data' => $products
+        ]);
     }
 }

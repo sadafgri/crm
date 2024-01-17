@@ -278,12 +278,12 @@
                                                                             name="filterRole">
                                                                         <option value="1"
                                                                                 @if(isset($_GET['filterRole']))
-                                                                                    @if($_GET['filterRole'] == "1") selected @endif
+                                                                                    @if($_GET['filterRole'] == "customer") selected @endif
                                                                                 @endif>مشتری
                                                                         </option>
                                                                         <option value="2"
                                                                                 @if(isset($_GET['filterRole']))
-                                                                                    @if($_GET['filterRole'] == "2") selected @endif
+                                                                                    @if($_GET['filterRole'] == "seller") selected @endif
                                                                                 @endif>فروشنده
                                                                         </option>
 {{--                                                                        <option value="3"--}}

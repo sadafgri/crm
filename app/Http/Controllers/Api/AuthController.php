@@ -16,27 +16,27 @@ class AuthController extends Controller
     public function create(CreateAuthRequest $request)
     {
         try{
-//            $validateUser= validator::make($request->all(),[
-//                'name'=>'required',
-//                'email'=>'required|email|unique:users,email',
-//                'password'=>'required_with:password_confirmation|same:password_confirmation',
-//                'password_confirmation'=>"",
-//            ]);
-//            if($validateUser->fails()) {
-//                return response()->json([
-//                    'status'=>false,
-//                    'message'=>'validation error',
-//                    'errors'=>$validateUser->errors()
-//                ],401);
-//            }
             $user = User::create([
-                'name'=>$request->name,
+                'user_name'=>$request->name,
                 'email'=>$request->email,
                 'role'=>$request->role,
                 'password'=>Hash::make($request->password),
             ]);
-            $token = $user->createToken("API TOKEN")->plainTextToken;
-            return redirect()->route('workplace');
+
+            if ($user->role == 'seller'){
+                $user->assignRole('seller');
+            }
+            if($user->role =='customer'){
+                $user->assignRole('customer');
+            }
+
+          $token =  $user->createToken("API TOKEN")->plainTextToken;
+
+            return Response()->json([
+                'status'=>true,
+                'message'=>'register successfully',
+                'token'=>$token
+            ],200);
         }catch (\Throwable $th){
             return response()->json([
                 'status'=>false,
@@ -66,8 +66,14 @@ class AuthController extends Controller
                     'message'=>'email & password does not match with our record'
                 ],401);
             }
-            $user=User::where('email',$request->email)->first();
-            return redirect()->route('workplace');
+           $user= User::where('email',$request->email)->first();
+//            session()->put('token',$user->createToken("API TOKEN")->plainTextToken);
+            $token = $user->createToken("API TOKEN")->plainTextToken;
+            return Response()->json([
+                'status'=>true,
+                'message'=>'login successfully',
+                'token'=>$token
+            ],200);
 
         }catch (\Throwable $th){
             return response()->json([
@@ -77,13 +83,16 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout($id)
     {
-        $user = $request->user();
+        $user = User::find($id);
         $user->tokens->each(function ($token, $key) {
                $token->delete();
                Auth::logout();
              });
-      return redirect('/login');
+        return Response()->json([
+            'status'=>true,
+            'message'=>'logout successfully'
+        ],200);
     }
 }

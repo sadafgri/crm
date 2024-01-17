@@ -4,34 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
-use App\Models\Order;
 use App\Models\User;
-use Spatie\QueryBuilder\AllowedInclude;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
 {
-    public function create()
-    {
-        return view("users.addUser");
-    }
+//    public function create()
+//    {
+//        return view("users.addUser");
+//    }
 
     public function index()
     {
         $users = User::all();
-        return view("users.usersData", ['users' => $users]);
+        return response()->json([
+            'status' => true,
+            'message' => 'users retrieved successfully',
+            'data' => $users
+        ]);
     }
-
     public function store(storeUserRequest $request)
     {
-//        $imagename = $request->image->getClientOriginalName();
-//        $request->image->move(public_path('image/users'),$imagename);
 
-        User::create([
+       $users = User::create([
+
             'user_name' => $request->user_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -46,18 +44,31 @@ class UserController extends Controller
             'password' => md5($request->password),
             'gender' => $request->gender,
         ]);
-        return redirect()->route('users.index');
-    }
+        $users->addMediaFromRequest('image')->toMediaCollection();
 
-    public function edit($id)
-    {
-        $users = User::find($id);
-        return view("users.editUser", ['user' => $users]);
-    }
+        return response()->json([
+            'message' => 'user created successfully',
+            'data' => $users
+        ], 201);    }
 
+//    public function edit($id)
+//    {
+//        $users = User::find($id);
+//        if (!$users) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'user not found'
+//            ], 404);
+//        }
+//        return response()->json([
+//            'status' => true,
+//            'message' => 'user retrieved successfully',
+//            'data' => $users
+//        ],);
+//    }
     public function update(updateUserRequest $request, $id)
     {
-        User::where('id', $id)->update([
+        $users = User::where('id', $id)->update([
             'user_name' => $request->user_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -71,24 +82,35 @@ class UserController extends Controller
             'province' => $request->province,
             'gender' => $request->gender,
         ]);
-        if(auth()->user()->role == 'admin'){
+        $user = User::find($id);
+        $user->addMediaFromRequest('image')->toMediaCollection();
 
-            return redirect()->route('users.index');
-        }else{
-            return redirect()->route('workplace');
+        if (auth()->user()->role == 'admin') {
+            return response()->json([
+                'status' => true,
+                'message' => 'user updated successfully',
+                'data' => User::find($id)
+            ], 200);
+//            return redirect()->route('users.index');
+//        }else{
+//            return redirect()->route('workplace');
+//        }
         }
     }
-
     public function destroy($id)
     {
-        User::where('id', $id)->update(['status' => 'disable']);
-        return back();
+        User::where('id',$id)->update(['status'=>'disable']);
+        return response()->json([
+            'status' => true,
+            'message' => 'user delete successfully'
+        ], 200);
     }
 
     public function filter(Request $request)
     {
 //        estefade az if
         $users = User::all();
+
         if ($request->filterEmail) {
             $users = $users->where('email', $request->filterEmail);
         }
@@ -113,6 +135,7 @@ class UserController extends Controller
         if ($request->filterPostalCode) {
             $users = $users->where('postal_code', $request->filterPostalCode);
         }
+
         $query = [];
         if ($request->filterOrderStatus) {
             if ($request->filterOrderStatus == 'true') {
@@ -122,22 +145,27 @@ class UserController extends Controller
                     }
                 }
             }
-            if ($request->filterOrderStatus == 'false') {
-                foreach ($users as $user) {
-                    if (!$user->orders->count()) {
-                        $query[] = $user->id;
-                    }
+        }
+        if ($request->filterOrderStatus == 'false') {
+            foreach ($users as $user) {
+                if (!$user->orders->count()) {
+                    $query[] = $user->id;
                 }
+             }
             $users = $users->find($query);
-            }
-            if($request->filterRole == '1'){
+        }
+            if($request->filterRole ==  'customer' ){
                 $users = $users->where('role','customer');
             }
-            if($request->filterRole == '2'){
+            if($request->filterRole == 'seller'){
                 $users = $users->where('role','seller');
             }
-            return view('users.usersData', ['users' => $users]);
 
+            return response()->json([
+                'status' => true,
+                'message' => 'users filtered successfully',
+                'data' => $users
+            ]);
 //        estefade az package
 //        $minAgeFilter = AllowedFilter::callback('AgeMin', function ($query, $value) {
 //            $query->where('age', '>=', $value);
@@ -160,6 +188,5 @@ class UserController extends Controller
 //
 //        return view("users.usersData", ['users' => $users]);
         }
-    }
 }
 

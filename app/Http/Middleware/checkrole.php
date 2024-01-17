@@ -23,6 +23,7 @@ class checkrole
         if(!in_array(auth()->user()->role, $roles[$role])){
             abort(code: 403);
         }
+
         return $next($request);
     }
 }

@@ -16,102 +16,112 @@ class OrderController extends Controller
     {
         if (auth()->user()->role == "customer") {
             $orders = auth()->user()->orders()->orderBy('id')->where('status', '=', 'enable')->get();
-            return view('orders.ordersData', ['orders' => $orders]);
         } else {
             $orders = Order::OrderBy('id')->where('status', '=', 'enable')->get();
-            return view('orders.ordersData', ['orders' => $orders]);
         }
+        return response()->json([
+            'status' => true,
+            'orders' => $orders
+        ]);
     }
 
-    public function create()
-    {
-        $products = Product::where('status', '=', 'enable')->get();
-        $users = User::where('status', '=', 'enable')->get();
-        return view('orders.addOrder', ['users' => $users, 'products' => $products]);
-    }
+//    public function create()
+//    {
+//        $products = Product::where('status', '=', 'enable')->get();
+//        $users = User::where('status', '=', 'enable')->get();
+//
+//        return response()->json([
+//            'products' => $products,
+//            'users' => $users
+//        ]);
+//    }
 
     public function store(storeOrderRequest $request)
     {
-        $products = Product::where('status', 'enable')->get();
         $total_price = 0;
-        foreach ($products as $product) {
-            $product_name = 'product_' . $product->id;
-            $total_price += ($product->price) * ($request->$product_name);
+
+        foreach ($request->products as $product) {
+            $price = Product::find($product['product_id'])->price;
+            $total_price += $price * $product['count'];
         }
-        Order::create([
+        $orders = Order::create([
             'user_id' => $request->customer_id,
             'title' => $request->order_name,
             'total_price' => $total_price,
         ]);
-        $order_id = Order::orderBy('id', 'desc')->first();
-        foreach ($products as $product) {
-            $product_name = 'product_' . $product->id;
-            if ($request->$product_name) {
-                $product->orders()->attach($order_id, [
-                    'count' => $request->$product_name,
-                    'created_at' => date('Y-m-d H:i:s'),
-                ]);
-                Product::where('id', $product->id)->update([
-                    'inventory' => ($product->inventory) - ($request->$product_name),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ]);
-            }
+        foreach ($request->products as $product){
+            $orders->products()->attach($product['product_id'],['count'=>$product['count']]);
+            $productModel = Product::find($product['product_id']);
+            $newInventory = $productModel->inventory - $product['count'];
+            $productModel->update(['inventory' => $newInventory]);
         }
-        return redirect()->route('orders.index');
+        return response()->json([
+            'status' => true,
+            'orders' => $orders
+        ]);
     }
 
-    public function edit($id)
-    {
-        $products = Product::where('status', '=', 'enable')->get();
-        $users = User::where('status', '=', 'enable')->get();
-        $order = Order::where('id', $id)->first();
-        return view('orders.editOrderMenue', ['users' => $users, 'order' => $order, 'products' => $products]);
-    }
+//    public function edit($id)
+//    {
+//        $products = Product::where('status', '=', 'enable')->get();
+//        $users = User::where('status', '=', 'enable')->get();
+//        $order = Order::where('id', $id)->first();
+//        if (!$order) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'Order not found'
+//            ], 404);
+//        }
+
+//        return response()->json([
+//            'status' => true,
+//            'order' => $order,
+//            'users' => $users,
+//            'products' => $products
+//        ]);
+//    }
 
     public function update(updateOrderRequest $request, $id)
     {
-        $order = Order::where('id', $id)->first();
-        $products = Product::where('status', 'enable')->get();
         $total_price = 0;
-        foreach ($products as $product) {
+        foreach ($request->products as $product) {
+            $productModel = Product::find($product['product_id']);
+            $count = $product['count'];
+            $price = $productModel->price;
+            $total_price += $price * $count;
 
-            $count1 = $product->orders->where('id', $id)->first();
+            $newInventory = $productModel->inventory - $count;
+            $productModel->update(['inventory' => $newInventory]);
 
-            if ($count1)
-                $count = $count1->pivot->count;
-            else
-                $count = 0;
-            $product_name = 'product_' . $product->id;
-            $total_price += ($product->price) * ($request->$product_name);
-            $newinventory = $product->inventory + $count - $request->$product_name;
-
-            Product::where('id', $product->id)->update([
-                'inventory' => $newinventory,
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
+            $order = Order::find($id);
+            $order->products()->syncWithoutDetaching([$product['product_id']=>['count'=>$product['count']]]);
         }
         Order::where('id', $id)->update([
             'user_id' => $request->customer_id,
+            'title'=>$request->order_name,
             'total_price' => $total_price,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        $order->products()->detach();
-        foreach ($products as $product) {
-            $product_name = 'product_' . $product->id;
-            if ($request->$product_name) {
-                $product->orders()->save($order, [
-                    'count' => $request->$product_name,
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ]);
-            }
-        }
-        return redirect()->route('orders.index');
+        return response()->json([
+            'status' => true,
+            'message' => 'order updated successfully',
+            'order' => Order::find($id),
+        ], 200);
     }
-
     public function destroy($id)
     {
-        Order::where('id', $id)->update(['status' => 'disable']);
-        return back();
+        $order = Order::find($id);
+        if (!$order) {
+            return response()->json([
+                'status' => false,
+                'message' => 'order not found'
+            ], 404);
+        }
+        Order::where('id',$id)->update(['status' => 'disable']);
+        return response()->json([
+            'status' => true,
+            'message' => 'order delete successfully'
+        ], 200);
     }
 
     public function filter(Request $request)
@@ -119,10 +129,9 @@ class OrderController extends Controller
         $query = Order::query();
         if ($request->filled('filterordername')) {
             $query->where('title', 'like', '%' . $request->filterordername . '%');
-            dd($query->get());
         }
         if ($request->filtername) {
-            $user_id = User::where('first_name',$request->filtername)->first()->id ;
+            $user_id = User::where('first_name', $request->filtername)->first()->id;
             $query->where('user_id', $user_id);
         }
         if ($request->filled('filtertotalpriceMin') && $request->filled('filtertotalpriceMax')) {
@@ -130,6 +139,10 @@ class OrderController extends Controller
         }
         $ordersResults = $query->get();
 
-        return view('orders.ordersData', ['orders' => $ordersResults]);
+        return response()->json([
+            'status' => true,
+            'message' => 'orders filtered successfully',
+            'data' => $ordersResults
+        ]);
     }
 }

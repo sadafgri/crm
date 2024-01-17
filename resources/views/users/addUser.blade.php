@@ -149,7 +149,7 @@
                                 <input class="form-control
                       form-control-md"
                                        id="image"
-                                       type="file" multiple>
+                                       type="file" name="image" multiple>
                             </div>
                         </div>
                         <div class="form-group">

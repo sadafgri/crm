@@ -13,36 +13,57 @@ class CheckController extends Controller
     public function index()
     {
         $factors = Factor::all();
-        return view('check.checksData', ['factors' => $factors]);
+        return response()->json([
+            'status' => true,
+            'message' => 'factors retrieved successfully',
+            'data' => $factors
+        ]);
     }
 
-    public function create()
-    {
-        $orders = Order::where('status','=','enable')->get();
-        return view('check.addCheck', ['orders' => $orders]);
-    }
+//    public function create()
+//    {
+//        $orders = Order::where('status','=','enable')->get();
+//        return response()->json([
+//            'status' => true,
+//            'data' => $orders
+//        ]);
+//    }
 
     public function store(Request $request)
     {
         $order = Order::where('id', $request->input('order_id'))->first();
         $existingFactor = Factor::where('order_id', $request->input( 'order_id'))->first();
-        if (!$order){  return back()->withErrors(['order_id' => 'The order does not exist.']);}
-        if ($existingFactor) { return back()->withErrors(['order_id' => 'A factor for this order already exists.']);}
-                 Factor::create([
+        if (!$order){  return response()->json(['order_id' => 'The order does not exist.']);}
+        if ($existingFactor) { return response()->json(['order_id' => 'A factor for this order already exists.']);}
+               $factor = Factor::create([
                 'title'=>$request->order_id,
                 'total_price'=>$request->total_pay,
                 'order_id'=>$order->id,
             ]);
-        return redirect()->route('checks.index');
+        return response()->json([
+            'status' => true,
+            'message' => 'factors retrieved successfully',
+            'data' => $factor
+        ]);
     }
 
-    public function edit($id)
-    {
-        $products = Product::where('status','=','enable')->get();
-        $orders = Order::where('status','=','enable')->get();
-        $factors = Factor::where('id',$id)->first();
-        return view('check.editCheckMenue',['factors' => $factors,'products' => $products ,'orders' => $orders]);
-    }
+//    public function edit($id)
+//    {
+//        $products = Product::where('status','=','enable')->get();
+//        $orders = Order::where('status','=','enable')->get();
+//        $factors = Factor::where('id',$id)->first();
+//        if (!$factors) {
+//            return response()->json([
+//                'status' => false,
+//                'message' => 'factor not found'
+//            ], 404);
+//        }
+//        return response()->json([
+//            'status' => true,
+//            'message' => 'factor retrieved successfully',
+//            'factors' => $factors
+//        ]);
+//    }
 
     public function update(Request $request, $id)
     {
@@ -53,18 +74,26 @@ class CheckController extends Controller
             'total_price'=>$request->total_pay,
             'order_id'=>$order->id,
         ]);
-
-
-        return redirect()->route('checks.index');
-    }
+        return response()->json([
+            'status' => true,
+            'message' => 'factor retrieved successfully',
+            'data' => Factor::find($id)
+        ]);    }
 
     public function destroy($id)
     {
         $factor = Factor::find($id);
-        if ($factor) {
-            $factor->delete();
+        if (!$factor) {
+            return response()->json([
+                'status' => false,
+                'message' => 'factor not found'
+            ], 404);
         }
-        return redirect()->route('checks.index');
+        Factor::where('id',$id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'factor delete successfully'
+        ], 200);
     }
 
     public function filter(Request $request)
@@ -85,6 +114,10 @@ class CheckController extends Controller
 //            $order = Order::where('order_id', $product_id)->get();
 //        }
         $factorsResults = $factor->get();
-        return view('check.checksData', ['factors' => $factorsResults]);
+        return response()->json([
+            'status' => true,
+            'message' => 'factor filtered successfully',
+            'data' => $factorsResults
+        ]);
     }
 }

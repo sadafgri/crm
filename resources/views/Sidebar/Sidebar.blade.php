@@ -16,13 +16,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('editProfPass')}}" class="nav-link">--}}
+{{--                           <a href="{{route('editProfPass')}}" class="nav-link">--}}
                                 <i class="fas fa-lock"></i>
                                 <p>تغییر رمز عبور</p>
                             </a>
                         </li>
                         <li class="nav-item">
-{{--                            <a href="{{route('editProfImage')}}" class="nav-link">--}}
+{{--                            <a href="{{route('users.editProfImage')}}" class="nav-link">--}}
                                 <i class="fas fa-image"></i>
                                 <p>تغییر عکس پروفایل</p>
                             </a>
