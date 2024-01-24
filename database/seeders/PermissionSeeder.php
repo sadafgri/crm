@@ -13,28 +13,28 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'filter users']);
-        Permission::create(['name' => 'index users']);
-        Permission::create(['name' => 'store users']);
-        Permission::create(['name' => 'destroy users']);
-        Permission::create(['name' => 'update users']);
+        Permission::create(['name' => 'FilterUsers']);
+        Permission::create(['name' => 'IndexUsers']);
+        Permission::create(['name' => 'StoreUsers']);
+        Permission::create(['name' => 'DestroyUsers']);
+        Permission::create(['name' => 'UpdateUsers']);
 
-        Permission::create(['name' => 'filter products']);
-        Permission::create(['name' => 'index products']);
-        Permission::create(['name' => 'store products']);
-        Permission::create(['name' => 'destroy products']);
-        Permission::create(['name' => 'update products']);
+        Permission::create(['name' => 'FilterProducts']);
+        Permission::create(['name' => 'IndexProducts']);
+        Permission::create(['name' => 'StoreProducts']);
+        Permission::create(['name' => 'DestroyProducts']);
+        Permission::create(['name' => 'UpdateProducts']);
 
-        Permission::create(['name' => 'filter orders']);
-        Permission::create(['name' => 'index orders']);
-        Permission::create(['name' => 'store orders']);
-        Permission::create(['name' => 'destroy orders']);
-        Permission::create(['name' => 'update orders']);
+        Permission::create(['name' => 'FilterOrders']);
+        Permission::create(['name' => 'IndexOrders']);
+        Permission::create(['name' => 'StoreOrders']);
+        Permission::create(['name' => 'DestroyOrders']);
+        Permission::create(['name' => 'UpdateOrders']);
 
-        Permission::create(['name' => 'filter checks']);
-        Permission::create(['name' => 'index checks']);
-        Permission::create(['name' => 'store checks']);
-        Permission::create(['name' => 'destroy checks']);
-        Permission::create(['name' => 'update checks']);
+        Permission::create(['name' => 'FilterChecks']);
+        Permission::create(['name' => 'IndexChecks']);
+        Permission::create(['name' => 'StoreChecks']);
+        Permission::create(['name' => 'DestroyChecks']);
+        Permission::create(['name' => 'UpdateChecks']);
     }
 }

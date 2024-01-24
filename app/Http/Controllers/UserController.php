@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 
 
 class UserController extends Controller

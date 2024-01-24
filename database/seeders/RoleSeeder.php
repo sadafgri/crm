@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,7 +20,7 @@ class RoleSeeder extends Seeder
         $sellerRole = Role::create(['name' => 'seller']);
 
         $adminRole->givePermissionTo('all');
-        $customerRole->givePermissionTo('index orders','store orders','destroy orders','update orders');
-        $sellerRole->givePermissionTo('index products','store products','destroy products','update products');
+        $customerRole->givePermissionTo(['IndexOrders','StoreOrders','DestroyOrders','UpdateOrders']);
+        $sellerRole->givePermissionTo(['IndexProducts','StoreProducts','DestroyProducts','UpdateProducts']);
     }
 }

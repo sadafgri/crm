@@ -54,15 +54,6 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Order::class);
     }
-    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany( Role::class);
-    }
-
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Permission::class);
-    }
     /**
      * The attributes that should be cast.
      *

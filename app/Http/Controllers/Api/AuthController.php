@@ -22,13 +22,14 @@ class AuthController extends Controller
                 'role'=>$request->role,
                 'password'=>Hash::make($request->password),
             ]);
+            $user->assignRole($request->role);
 
-            if ($user->role == 'seller'){
-                $user->assignRole('seller');
-            }
-            if($user->role =='customer'){
-                $user->assignRole('customer');
-            }
+//            if ($user->role == 'seller'){
+//                $user->assignRole('seller');
+//            }
+//            if($user->role =='customer'){
+//                $user->assignRole('customer');
+//            }
 
           $token =  $user->createToken("API TOKEN")->plainTextToken;
 
