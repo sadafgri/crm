@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeOrderRequest;
 use App\Http\Requests\updateOrderRequest;
+use App\Mail\MailNotify;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
+
 
 class OrderController extends Controller
 {
