@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderEmail;
 use App\Http\Requests\storeOrderRequest;
 use App\Http\Requests\updateOrderRequest;
 use App\Mail\MailNotify;
@@ -58,6 +59,9 @@ class OrderController extends Controller
             $newInventory = $productModel->inventory - $product['count'];
             $productModel->update(['inventory' => $newInventory]);
         }
+        OrderEmail::dispatch($orders);
+//        event(new OrderEmail($orders));
+
         return response()->json([
             'status' => true,
             'orders' => $orders
